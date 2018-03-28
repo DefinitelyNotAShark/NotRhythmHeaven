@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStateChange : MonoBehaviour {
 
-    public enum PlayerState { normal, pose1, pose2, pose3}
+    public enum PlayerState { normal, pose1, animationBeforePose2, pose2, pose3}
 
     [SerializeField]
     private Sprite normalSprite;
@@ -25,6 +25,8 @@ public class PlayerStateChange : MonoBehaviour {
     private string pose2Name;
     private string pose3Name;
 
+    private bool animationIsStarted = false;
+
     private float pose1;
     private float pose2;
     private float pose3;  
@@ -42,9 +44,14 @@ public class PlayerStateChange : MonoBehaviour {
     private void Update()
     {
         GetButtonInput();
-        SetState();
-        Debug.Log(state.ToString());
         ChangePlayerBasedOnState();
+    }
+
+    private void FixedUpdate()
+    {
+        SetStateBasedOnInput();
+        Debug.Log(state.ToString());
+        Debug.Log("animationIsStarted: " + animationIsStarted);
     }
 
     void SetInputAxes()//only call once
@@ -61,33 +68,63 @@ public class PlayerStateChange : MonoBehaviour {
         pose3 = Input.GetAxis(pose3Name);
     }
 
-    void SetState()
+    void SetStateBasedOnInput()
     {
-        if (pose1 == 1)
+        if (pose1 == 1)//shouldn't get input if the animation is going or if player is holding pose2
             state = PlayerState.pose1;
 
-        else if (pose2 == 1)
-            state = PlayerState.pose2;
+        else if (pose2 == 1)//set state to animation state if it's not already running
+        {
+            state = PlayerState.animationBeforePose2;//this is set to animation instead of pose 2
+            animationIsStarted = true;//set it right when the input comes in to avoid last minute input
+        }
 
         else if (pose3 == 1)
             state = PlayerState.pose3;
 
-        else
+        else if (!animationIsStarted)
             state = PlayerState.normal;
     }
 
-    void ChangePlayerBasedOnState()
+    void ChangePlayerBasedOnState()//this is where the sprites are set
     {
-        if (state == PlayerState.pose1)
-            spriteRenderer.sprite = pose1Sprite;
+        switch (state)
+        {
+            case PlayerState.pose1:
+                spriteRenderer.sprite = pose1Sprite;
+                break;
 
-        else if (state == PlayerState.pose2)
-            spriteRenderer.sprite = pose2Sprite;
+            case PlayerState.animationBeforePose2:
+                StartCoroutine(AnimationBeforePose2());
+                break;
 
-        else if (state == PlayerState.pose3)
-            spriteRenderer.sprite = pose3Sprite;
+            case PlayerState.pose2:
+                spriteRenderer.sprite = pose2Sprite;
+                break;
 
-        else if (state == PlayerState.normal)
-            spriteRenderer.sprite = normalSprite;
+            case PlayerState.pose3:
+                spriteRenderer.sprite = pose3Sprite;
+                break;
+
+            case PlayerState.normal:
+                spriteRenderer.sprite = normalSprite;
+                break;
+        }
+
+    }
+
+    private IEnumerator AnimationBeforePose2()
+    {
+        //start animation here
+        yield return new WaitForSeconds(2);//when animation is done
+        StartCoroutine(ChangeToPose2AtEndOfAnimation());//after animation go to the pose 2 coroutine;
+    }
+
+    private IEnumerator ChangeToPose2AtEndOfAnimation()
+    {
+        //holdingPose2 = true;
+        state = PlayerState.pose2;//set the pose to pose2
+        yield return new WaitForSeconds(1);//hold pose 2 for 1 second
+        animationIsStarted = false;//able to do the animation again!
     }
 }
