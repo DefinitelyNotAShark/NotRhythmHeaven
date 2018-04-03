@@ -46,8 +46,6 @@ public class AiStateChange : MonoBehaviour
         StartCoroutine(ChangeEachAIStateOverTime(.5f, SetSprite.SpriteState.pose2));
         yield return new WaitForSeconds(3);
         StartCoroutine(ChangeEachAIStateOverTime(.5f, SetSprite.SpriteState.pose3));
-
-        ResetStatesToNormal();
     }
 
     IEnumerator ChangeEachAIStateOverTime(float time, SetSprite.SpriteState state)
@@ -56,19 +54,12 @@ public class AiStateChange : MonoBehaviour
         {
             AiGameObjects[i].GetComponent<SetSprite>().State = state;
             yield return new WaitForSeconds(time);
+            AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
         }
     }
 
     IEnumerator TimeToReact()
     {
         yield return new WaitForSeconds(.5f);
-    }
-
-    void ResetStatesToNormal()
-    {
-        for (int i = 0; i < AiGameObjects.Count; i++)//for each sprite, change pose, then wait then change pose then wait
-        {
-            AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
-        }
     }
 }
