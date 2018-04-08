@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 53848306}
   - component: {fileID: 53848308}
   - component: {fileID: 53848309}
+  - component: {fileID: 53848310}
   m_Layer: 0
   m_Name: Player(filler)
   m_TagString: Untagged
@@ -208,6 +209,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41aaed816622b5642a7d57074f262d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &53848310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 53848305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee0c30a2f8cc64f931c4d169229d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &242016156
@@ -475,6 +487,9 @@ MonoBehaviour:
   AiGameObject1: {fileID: 242016156}
   AiGameObject2: {fileID: 1208082387}
   AiGameObject3: {fileID: 956491072}
+  spriteRenderer: {fileID: 758347059}
+  timeToWait: 0
+  timeToReact: 0
 --- !u!1 &1208082387
 GameObject:
   m_ObjectHideFlags: 0

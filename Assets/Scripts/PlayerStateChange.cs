@@ -64,6 +64,18 @@ public class PlayerStateChange : MonoBehaviour {
             setSprite.State = SetSprite.SpriteState.normal;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     //private IEnumerator AnimationBeforePose2()
     //{
     //    //start animation here

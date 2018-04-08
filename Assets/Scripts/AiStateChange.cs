@@ -14,6 +14,15 @@ public class AiStateChange : MonoBehaviour
     [SerializeField]
     GameObject AiGameObject3;
 
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private float timeToWait;
+
+    [SerializeField]
+    private float timeToReact;
+
     List<GameObject> AiGameObjects;
 
     SetSprite setSprite;
@@ -31,6 +40,9 @@ public class AiStateChange : MonoBehaviour
         {
             a.gameObject.AddComponent<SetSprite>();//adds a set sprite script to each spriteObject
         }
+
+        timeToReact = .5f;
+        timeToWait = .5f;
     }
 
     private void Start()
@@ -38,15 +50,18 @@ public class AiStateChange : MonoBehaviour
         StartCoroutine(tempCoroutineForTimeTesting());
     }
 
-    IEnumerator tempCoroutineForTimeTesting()
+    IEnumerator tempCoroutineForTimeTesting()//this is the big function that will set all the moves for the game!
     {
         yield return new WaitForSeconds(3);
         StartCoroutine(ChangeEachAIStateOverTime(.5f, SetSprite.SpriteState.pose1));
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         StartCoroutine(ChangeEachAIStateOverTime(.5f, SetSprite.SpriteState.pose2));
         yield return new WaitForSeconds(3);
         StartCoroutine(ChangeEachAIStateOverTime(.5f, SetSprite.SpriteState.pose3));
     }
+
+
+
 
     IEnumerator ChangeEachAIStateOverTime(float time, SetSprite.SpriteState state)
     {
@@ -56,10 +71,21 @@ public class AiStateChange : MonoBehaviour
             yield return new WaitForSeconds(time);
             AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
         }
+        StartCoroutine(BufferTimeBeforeReact(timeToReact));
     }
 
-    IEnumerator TimeToReact()
+    IEnumerator BufferTimeBeforeReact(float timetoreact)
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.2f);//this needs to be shorter
+        StartCoroutine(TimeToReact(timetoreact));
+    }
+
+    IEnumerator TimeToReact(float timeforreact)
+    {
+        spriteRenderer.color = Color.yellow;//this is the time you have to react!!!
+        CheckInput.check = true;
+        yield return new WaitForSeconds(timeforreact);
+        CheckInput.check = false;
+        spriteRenderer.color = Color.white;
     }
 }
