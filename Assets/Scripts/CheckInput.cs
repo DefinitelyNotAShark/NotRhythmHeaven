@@ -24,7 +24,16 @@ public class CheckInput : MonoBehaviour
 
     void GetInput()
     {
-        if(this.setSprite.State == )//check if my state is equal to the ai state call
+        if(this.setSprite.State == SetSprite.SpriteState.normal)
+        {
+            Debug.Log("neutral");
+        }
+        else if (this.setSprite.State == SetSprite.AiState)
+        {
+            Debug.Log("CORRECT BUTTON");
+        } //check if my state is equal to the ai state call
+        else
+            Debug.Log("WRONG BUTTON");
     }
 
     void CompareStatesBetweenPlayerAndAI()

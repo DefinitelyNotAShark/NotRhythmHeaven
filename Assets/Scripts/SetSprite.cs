@@ -10,6 +10,8 @@ public class SetSprite : MonoBehaviour
     private SpriteState state;
     public SpriteState State { get { return state; } set { state = value; } }
 
+    public static SpriteState AiState;
+
     private Sprite normalSprite;//add these at start
     private Sprite pose1Sprite;
     private Sprite pose2Sprite;

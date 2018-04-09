@@ -30,7 +30,6 @@ public class PlayerStateChange : MonoBehaviour {
     private void FixedUpdate()
     {
         SetStateBasedOnInput();
-        Debug.Log(setSprite.State.ToString());
     }
 
     void SetInputAxes()//only call once

@@ -31,7 +31,7 @@ public class AiStateChange : MonoBehaviour
     private void Awake()
     {
         AiGameObjects = new List<GameObject>();//makes a list of gameObjects for each ai object
-
+    
         AiGameObjects.Add(AiGameObject1);//adds all ai Objects to list
         AiGameObjects.Add(AiGameObject2);
         AiGameObjects.Add(AiGameObject3);
@@ -71,17 +71,18 @@ public class AiStateChange : MonoBehaviour
             yield return new WaitForSeconds(time);
             AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
         }
-        StartCoroutine(BufferTimeBeforeReact(timeToReact));
+        StartCoroutine(BufferTimeBeforeReact(timeToReact, state));
     }
 
-    IEnumerator BufferTimeBeforeReact(float timetoreact)
+    IEnumerator BufferTimeBeforeReact(float timetoreact, SetSprite.SpriteState aiState)
     {
         yield return new WaitForSeconds(.2f);//this needs to be shorter
-        StartCoroutine(TimeToReact(timetoreact));
+        StartCoroutine(TimeToReact(timetoreact, aiState));
     }
 
-    IEnumerator TimeToReact(float timeforreact)
+    IEnumerator TimeToReact(float timeforreact, SetSprite.SpriteState aiState)
     {
+        SetSprite.AiState = aiState;
         spriteRenderer.color = Color.yellow;//this is the time you have to react!!!
         CheckInput.check = true;
         yield return new WaitForSeconds(timeforreact);
