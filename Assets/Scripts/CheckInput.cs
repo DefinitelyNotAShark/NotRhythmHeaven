@@ -8,6 +8,8 @@ public class CheckInput : MonoBehaviour
 
     private SetSprite setSprite;
 
+    public static int points;
+    public static bool didPoints = false;
 
     private void Start()
     {
@@ -24,21 +26,36 @@ public class CheckInput : MonoBehaviour
 
     void GetInput()
     {
-        if(this.setSprite.State == SetSprite.SpriteState.normal)
+        if (this.setSprite.State == SetSprite.SpriteState.normal)
         {
             Debug.Log("neutral");
         }
         else if (this.setSprite.State == SetSprite.AiState)
         {
+            if (!didPoints)
+                AddPoints();
+
             Debug.Log("CORRECT BUTTON");
+
         } //check if my state is equal to the ai state call
         else
+        {
+            if (!didPoints)
+                RemovePoints();
+
             Debug.Log("WRONG BUTTON");
+        }
     }
 
-    void CompareStatesBetweenPlayerAndAI()
+    void AddPoints()
     {
-
+        points++;
+        didPoints = true;
     }
-	
+
+    void RemovePoints()
+    {
+        points--;
+        didPoints = true;
+    }
 }
