@@ -5,7 +5,7 @@ using UnityEngine;
 public class SetSprite : MonoBehaviour
 {
 
-    public enum SpriteState { normal, pose1, animationBeforePose2, pose2, pose3 }
+    public enum SpriteState { normal, pose1, animationBeforePose2, pose2, pose3, happyExpression, angryExpression }
 
     private SpriteState state;
     public SpriteState State { get { return state; } set { state = value; } }
@@ -16,16 +16,20 @@ public class SetSprite : MonoBehaviour
     private Sprite pose1Sprite;
     private Sprite pose2Sprite;
     private Sprite pose3Sprite;
+    private Sprite happySprite;
+    private Sprite angrySprite;
 
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         state = SpriteState.normal;//starts out with normal expression/pose
-        normalSprite = Resources.Load<Sprite>("NunNormal");
-        pose1Sprite =  Resources.Load<Sprite>("NunPose1");
-        pose2Sprite = Resources.Load<Sprite>("NunPose2");
-        pose3Sprite = Resources.Load<Sprite>("NunPose3");
+        normalSprite = Resources.Load<Sprite>("MySonfilled");
+        pose1Sprite =  Resources.Load<Sprite>("MySonPose1");
+        pose2Sprite = Resources.Load<Sprite>("MySonPose2");
+        pose3Sprite = Resources.Load<Sprite>("MySonPose3");
+        happySprite = Resources.Load<Sprite>("MySonHappy");
+        angrySprite = Resources.Load<Sprite>("MySonAngry");
 
 
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();//get renderer
@@ -55,6 +59,13 @@ public class SetSprite : MonoBehaviour
 
             case SpriteState.normal:
                 spriteRenderer.sprite = normalSprite;
+                break;
+            case SpriteState.angryExpression:
+                spriteRenderer.sprite = angrySprite;
+                break;
+
+            case SpriteState.happyExpression:
+                spriteRenderer.sprite = happySprite;
                 break;
         }
     }

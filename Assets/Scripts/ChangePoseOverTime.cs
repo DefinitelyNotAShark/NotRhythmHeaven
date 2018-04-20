@@ -17,6 +17,9 @@ public class ChangePoseOverTime : MonoBehaviour {
     private float timeBetweenAiAndPlayer;
 
     [SerializeField]
+    private float timeForReactionExpression;
+
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     // Use this for initialization
@@ -24,20 +27,21 @@ public class ChangePoseOverTime : MonoBehaviour {
     {
         StartCoroutine(MainCoroutine());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    IEnumerator MainCoroutine()//this is the big function that will set all the moves for the game!
+    IEnumerator MainCoroutine()//this is the big function that will set all the moves for the game!//this is hard coded. Change to make better
     {
         yield return new WaitForSeconds(3);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose3));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
     }
 
     IEnumerator ChangeEachAIStateOverTime(float timeBetweenStates, SetSprite.SpriteState state)
@@ -55,11 +59,35 @@ public class ChangePoseOverTime : MonoBehaviour {
     {
         SetSprite.AiState = aiState;
         yield return new WaitForSeconds(timeBetweenAiAndPlayer);//this is short, but it acts as kind of a buffer to get the rhythm right
-        spriteRenderer.color = Color.yellow;//this is the time you have to react!!!
         CheckInput.check = true;
         yield return new WaitForSeconds(timeforreact);
         CheckInput.check = false;
-        CheckInput.didPoints = false;
-        spriteRenderer.color = Color.white;
+
+        if(CheckInput.InputIsCorrect == 1)//this sees whether you pressed the right number or not
+        {
+            StartCoroutine(ReactExpression(timeForReactionExpression, SetSprite.SpriteState.happyExpression));
+        }
+        else
+        {
+            StartCoroutine(ReactExpression(timeForReactionExpression, SetSprite.SpriteState.angryExpression));
+        }
+        CheckInput.didPoints = false;//these just need to be reset afterwords
+        CheckInput.InputIsCorrect = 0;
+        CheckInput.restingAfterCorrect = false;
+    }
+
+    IEnumerator ReactExpression(float expressionTime, SetSprite.SpriteState aiState)
+    {
+        for (int i = 0; i < AiStateChange.AiGameObjects.Count; i++)//for each sprite, change pose to reaction pose
+        {
+            AiStateChange.AiGameObjects[i].GetComponent<SetSprite>().State = aiState;
+        }
+
+        yield return new WaitForSeconds(expressionTime); 
+        
+        for (int i = 0; i < AiStateChange.AiGameObjects.Count; i++)//set sprite back to normal
+        {
+            AiStateChange.AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
+        }
     }
 }
