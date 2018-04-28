@@ -9,12 +9,14 @@ public class PlayerStateChange : MonoBehaviour {
     private string pose1Name;
     private string pose2Name;
     private string pose3Name;
+    private string pose4Name;
 
     private bool animationIsStarted = false;
 
     private float pose1Input;
     private float pose2Input;
-    private float pose3Input;  
+    private float pose3Input;
+    private float pose4Input;
 
     private void Start()
     {
@@ -37,6 +39,7 @@ public class PlayerStateChange : MonoBehaviour {
         pose1Name = "pose1";
         pose2Name = "pose2";
         pose3Name = "pose3";
+        pose4Name = "pose4";
     }
 
     void GetButtonInput()
@@ -44,6 +47,7 @@ public class PlayerStateChange : MonoBehaviour {
         pose1Input = Input.GetAxis(pose1Name);
         pose2Input = Input.GetAxis(pose2Name);
         pose3Input = Input.GetAxis(pose3Name);
+        pose4Input = Input.GetAxis(pose4Name);
     }
 
     void SetStateBasedOnInput()
@@ -58,6 +62,9 @@ public class PlayerStateChange : MonoBehaviour {
 
         else if (pose3Input == 1)
             setSprite.State = SetSprite.SpriteState.pose3;
+
+        else if (pose4Input == 1)
+            setSprite.State = SetSprite.SpriteState.pose4;
 
         else if (!animationIsStarted)
             setSprite.State = SetSprite.SpriteState.normal;

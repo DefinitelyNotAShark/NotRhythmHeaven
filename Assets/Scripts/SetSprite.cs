@@ -5,7 +5,7 @@ using UnityEngine;
 public class SetSprite : MonoBehaviour
 {
 
-    public enum SpriteState { normal, pose1, animationBeforePose2, pose2, pose3, happyExpression, angryExpression }
+    public enum SpriteState { normal, pose1, animationBeforePose2, pose2, pose3, pose4, happyExpression, angryExpression }
 
     private SpriteState state;
     public SpriteState State { get { return state; } set { state = value; } }
@@ -16,6 +16,7 @@ public class SetSprite : MonoBehaviour
     private Sprite pose1Sprite;
     private Sprite pose2Sprite;
     private Sprite pose3Sprite;
+    private Sprite pose4Sprite;
     private Sprite happySprite;
     private Sprite angrySprite;
 
@@ -28,9 +29,9 @@ public class SetSprite : MonoBehaviour
         pose1Sprite =  Resources.Load<Sprite>("MySonPose1");
         pose2Sprite = Resources.Load<Sprite>("MySonPose2");
         pose3Sprite = Resources.Load<Sprite>("MySonPose3");
+        pose4Sprite = Resources.Load<Sprite>("MySonPose4");
         happySprite = Resources.Load<Sprite>("MySonHappy");
         angrySprite = Resources.Load<Sprite>("MySonAngry");
-
 
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();//get renderer
         spriteRenderer.sprite = normalSprite;//set default to normal;
@@ -57,9 +58,14 @@ public class SetSprite : MonoBehaviour
                 spriteRenderer.sprite = pose3Sprite;
                 break;
 
+            case SpriteState.pose4:
+                spriteRenderer.sprite = pose4Sprite;
+                break;
+
             case SpriteState.normal:
                 spriteRenderer.sprite = normalSprite;
                 break;
+
             case SpriteState.angryExpression:
                 spriteRenderer.sprite = angrySprite;
                 break;
