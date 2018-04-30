@@ -37,13 +37,19 @@ public class ChangePoseOverTime : MonoBehaviour {
         yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose3));
         yield return new WaitForSeconds(5);
-        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
-        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
+        yield return new WaitForSeconds(6);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
         yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
+        yield return new WaitForSeconds(6);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose3));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose3));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
     }
 
     IEnumerator ChangeEachAIStateOverTime(float timeBetweenStates, SetSprite.SpriteState state)
