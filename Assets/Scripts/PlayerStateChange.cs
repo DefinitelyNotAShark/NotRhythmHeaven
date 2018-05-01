@@ -22,6 +22,7 @@ public class PlayerStateChange : MonoBehaviour {
 
     [SerializeField]
     PostProcessingProfile ppProfile;
+
     ChromaticAberrationModel.Settings chromaticSettings;
 
     private void Start()
@@ -73,23 +74,30 @@ public class PlayerStateChange : MonoBehaviour {
         else if (pose4Input == 1)
         {
             setSprite.State = SetSprite.SpriteState.pose4;
-            chromaticSettings = ppProfile.chromaticAberration.settings;
+
+            if (ppProfile != null)
+                chromaticSettings = ppProfile.chromaticAberration.settings;
             Debug.Log("Trying to do it");
 
             if(chromaticSettings.intensity < 1)
                 chromaticSettings.intensity += .1f;
 
-            ppProfile.chromaticAberration.settings = chromaticSettings;
+            if (ppProfile != null)
+                ppProfile.chromaticAberration.settings = chromaticSettings;
         }
 
         else if (!animationIsStarted)
         {
             setSprite.State = SetSprite.SpriteState.normal;
 
+            if(ppProfile != null)
             chromaticSettings = ppProfile.chromaticAberration.settings;
+
             Debug.Log("Trying to do it");
             chromaticSettings.intensity = 0;
-            ppProfile.chromaticAberration.settings = chromaticSettings;
+
+            if (ppProfile != null)
+                ppProfile.chromaticAberration.settings = chromaticSettings;
         }
     }
 
