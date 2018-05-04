@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 889707209}
   - component: {fileID: 889707208}
   - component: {fileID: 889707207}
+  - component: {fileID: 889707211}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -519,6 +520,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889707211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 889707206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 91f8b98979cb0b842b1746e2c9798167, type: 2}
 --- !u!1 &999735074
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,10 +944,10 @@ RectTransform:
   m_Father: {fileID: 1021581511}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888, y: -0.000068665}
-  m_SizeDelta: {x: 1920.6, y: 1080.3}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 934, y: 611}
+  m_SizeDelta: {x: 2055, y: 1467}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1699882794
 MonoBehaviour:
@@ -955,7 +968,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e41444feda225bd45a87fb7bf9f6380f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c061569247a3c842b1a3ad07fb1dd9d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -978,7 +991,7 @@ Animator:
   m_GameObject: {fileID: 1699882792}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 236c63c5d2934f84281e38f1eaaf1422, type: 2}
+  m_Controller: {fileID: 9100000, guid: ccce971262df4ab4bb11204f476afc2e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

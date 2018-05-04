@@ -6,23 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class IntroText : MonoBehaviour
 {
-
-    Text introText;
-    float input;
-    bool coolDown = true;
-    int inputNum = 0;
-
     [SerializeField]
     Text spaceText;
 
     [SerializeField]
     Button startButton;
 
+    Text introText;
+    float input;
+    bool coolDown = true;
+    bool allowNotes = false;
+
+    int inputNum = 0;
+
+    AudioSource buttonClick;
 
     // Use this for initialization
     void Start()
     {
-        introText = GetComponent<Text>();        
+        introText = GetComponent<Text>();
+        buttonClick = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -40,8 +43,9 @@ public class IntroText : MonoBehaviour
   
         if (input > 0 && coolDown == true)
         {
+            buttonClick.Play();
             coolDown = false;
-            inputNum++;
+            inputNum++;            
             ChangeText();
             StartCoroutine(Cooldown());
         }
@@ -58,6 +62,7 @@ public class IntroText : MonoBehaviour
                 introText.text = "This is a special performance with all your friends.";
                 break;
             case 2:
+                allowNotes = true;
                 introText.text = "Press the arrow keys to strike a pose.";
                 break;
             case 3:
@@ -81,6 +86,7 @@ public class IntroText : MonoBehaviour
     public void StartIsPressed()
     {
         Debug.Log("You clicked");
+        PlayerStateChange.canDoFourthPose = true;
         SceneManager.LoadScene("GameScene");
     }
 }

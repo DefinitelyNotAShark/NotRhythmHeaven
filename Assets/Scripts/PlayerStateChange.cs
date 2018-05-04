@@ -14,6 +14,8 @@ public class PlayerStateChange : MonoBehaviour {
 
     private bool animationIsStarted = false;
     private bool canStartCoroutine = true;
+    public static bool canDoFourthPose = false;
+
 
     private float pose1Input;
     private float pose2Input;
@@ -23,12 +25,26 @@ public class PlayerStateChange : MonoBehaviour {
     [SerializeField]
     PostProcessingProfile ppProfile;
 
+    [SerializeField]
+    AudioClip pose1Sound;
+
+    [SerializeField]
+    AudioClip pose2Sound;
+
+    [SerializeField]
+    AudioClip pose3Sound;
+
+    [SerializeField]
+    AudioClip pose4Sound;
+
+    AudioSource audioSource;
+
     ChromaticAberrationModel.Settings chromaticSettings;
 
     private void Start()
     {
         setSprite = GetComponent<SetSprite>();
-        
+        audioSource = GetComponent<AudioSource>();
         SetInputAxes();
     }
 
@@ -61,37 +77,61 @@ public class PlayerStateChange : MonoBehaviour {
     void SetStateBasedOnInput()
     {
         if (pose1Input == 1)//shouldn't get input if the animation is going or if player is holding pose2
-            setSprite.State = SetSprite.SpriteState.pose1;
+        {
+            audioSource.clip = pose1Sound;
 
-        else if (pose2Input == 1)//set state to animation state if it's not already running     
+            if(!audioSource.isPlaying)
+            audioSource.Play();
+            setSprite.State = SetSprite.SpriteState.pose1;
+        }
+
+        else if (pose2Input == 1)//set state to animation state if it's not already running   
+        {
+            audioSource.clip = pose2Sound;
+
+
+            if (!audioSource.isPlaying)
+                audioSource.Play();
             setSprite.State = SetSprite.SpriteState.pose2;
+        }
 
         //state = PlayerState.animationBeforePose2;//this is set to animation instead of pose 2
 
         else if (pose3Input == 1)
-            setSprite.State = SetSprite.SpriteState.pose3;
-
-        else if (pose4Input == 1)
         {
+            audioSource.clip = pose3Sound;
+
+            if (!audioSource.isPlaying)
+                audioSource.Play();
+            setSprite.State = SetSprite.SpriteState.pose3;
+        }
+
+        else if (pose4Input == 1 && canDoFourthPose)
+        {
+            audioSource.clip = pose4Sound;
+
             setSprite.State = SetSprite.SpriteState.pose4;
 
             if (ppProfile != null)
                 chromaticSettings = ppProfile.chromaticAberration.settings;
             Debug.Log("Trying to do it");
 
-            if(chromaticSettings.intensity < 1)
+            if (chromaticSettings.intensity < 1)
                 chromaticSettings.intensity += .1f;
 
             if (ppProfile != null)
                 ppProfile.chromaticAberration.settings = chromaticSettings;
+
+            if (!audioSource.isPlaying)
+                audioSource.Play();
         }
 
         else if (!animationIsStarted)
         {
             setSprite.State = SetSprite.SpriteState.normal;
 
-            if(ppProfile != null)
-            chromaticSettings = ppProfile.chromaticAberration.settings;
+            if (ppProfile != null)
+                chromaticSettings = ppProfile.chromaticAberration.settings;
 
             Debug.Log("Trying to do it");
             chromaticSettings.intensity = 0;
