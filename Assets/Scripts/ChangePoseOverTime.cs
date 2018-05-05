@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class ChangePoseOverTime : MonoBehaviour {
 
@@ -30,11 +31,6 @@ public class ChangePoseOverTime : MonoBehaviour {
     AudioClip wrongSound;
 
     AudioSource audioSource;
-
-    [SerializeField]
-    PostProcessingProfile ppProfile;
-
-    VignetteModel.Settings vignetteSettings;
 
     public static bool canStartMainCoroutine;
 
@@ -65,6 +61,14 @@ public class ChangePoseOverTime : MonoBehaviour {
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
         yield return new WaitForSeconds(6);
         StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose3, SetSprite.SpriteState.pose1));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
+        yield return new WaitForSeconds(6);
+        StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose3, SetSprite.SpriteState.pose4));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
+        SceneManager.LoadScene("GameOverScene");
+
     }
 
     IEnumerator ChangeEachAIStateOverTime(float timeBetweenStates, SetSprite.SpriteState state)
@@ -89,10 +93,14 @@ public class ChangePoseOverTime : MonoBehaviour {
         if(CheckInput.InputIsCorrect == 1)//this sees whether you pressed the right number or not
         {
             StartCoroutine(ReactExpression(timeForReactionExpression, SetSprite.SpriteState.happyExpression));
+            audioSource.clip = correctSound;
+            audioSource.Play();
         }
         else
         {
             StartCoroutine(ReactExpression(timeForReactionExpression, SetSprite.SpriteState.angryExpression));
+            audioSource.clip = wrongSound;
+            audioSource.Play();
         }
         CheckInput.didPoints = false;//these just need to be reset afterwords
         CheckInput.InputIsCorrect = 0;
@@ -120,7 +128,7 @@ public class ChangePoseOverTime : MonoBehaviour {
         for (int i = 0; i < AiStateChange.AiGameObjects.Count; i++)
         {
             AiStateChange.AiGameObjects[i].GetComponent<SetSprite>().State = state1;
-            yield return new WaitForSeconds(timeBetweenStates - .3f);//this is the time between 2 states
+            yield return new WaitForSeconds(timeBetweenStates - .1f);//this is the time between 2 states
             AiStateChange.AiGameObjects[i].GetComponent<SetSprite>().State = state2;
             yield return new WaitForSeconds(timeBetweenStates);
             AiStateChange.AiGameObjects[i].GetComponent<SetSprite>().State = SetSprite.SpriteState.normal;
