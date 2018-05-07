@@ -14,6 +14,18 @@ public class AiStateChange : MonoBehaviour
     [SerializeField]
     GameObject AiGameObject3;
 
+    [SerializeField]
+    AudioClip pose1Clip;
+
+    [SerializeField]
+    AudioClip pose2Clip;
+
+    [SerializeField]
+    AudioClip pose3Clip;
+
+    [SerializeField]
+    AudioClip pose4Clip;
+
     public static List<GameObject> AiGameObjects;
 
     SetSprite setSprite;

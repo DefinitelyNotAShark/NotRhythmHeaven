@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class ChangeEndText : MonoBehaviour {
 
     Text text;
     string responseText;
+    string gradeText;
     AudioSource audioSource;
 
     [SerializeField]
@@ -17,12 +19,41 @@ public class ChangeEndText : MonoBehaviour {
     {
         audioSource = GetComponent<AudioSource>();
         GetResponseText();
+        GetGradeText();
         text = GetComponent<Text>();
         StartCoroutine(WaitToShowText());
 	}
-	
-	// Update is called once per frame
-	void GetResponseText()
+
+    private void GetGradeText()
+    {
+        if (CheckInput.points <= 0)//if your score is 0 or negative
+        {
+            gradeText = "F";
+        }
+        else if (CheckInput.points > 0 && CheckInput.points <= 4)//if your score is 1 to 4
+        {
+            gradeText = "D";
+        }
+        else if (CheckInput.points > 4 && CheckInput.points <= 6)//if your score is 5 - 6
+        {
+            gradeText = "C";
+        }
+        else if (CheckInput.points > 6 && CheckInput.points <= 8)//if your score is 7 - 8
+        {
+            gradeText = "B";
+        }
+        else if (CheckInput.points > 8 && CheckInput.points <= 10)//if your score is 9 - 10
+        {
+            gradeText = "A";
+        }
+        else if (CheckInput.points > 8)//if your score is 11 - 12
+        {
+            gradeText = "A+";
+        }
+    }
+
+    // Update is called once per frame
+    void GetResponseText()
     {
         if (CheckInput.points <= 0)//if your score is 0 or negative
         {
@@ -55,6 +86,9 @@ public class ChangeEndText : MonoBehaviour {
         yield return new WaitForSeconds(2);
         audioSource.Play();
         text.text = text.text + "\n\n" + responseText;
+        yield return new WaitForSeconds(2);
+        audioSource.Play();
+        text.text = text.text + "\n\n" + gradeText;
         yield return new WaitForSeconds(1);
         audioSource.clip = feelDaBeat;
         audioSource.Play();

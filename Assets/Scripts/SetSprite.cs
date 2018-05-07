@@ -12,8 +12,6 @@ public class SetSprite : MonoBehaviour
 
     public static SpriteState AiState;
 
-    AudioSource audioSource;
-
     private Sprite normalSprite;//add these at start
     private Sprite pose1Sprite;
     private Sprite pose2Sprite;
@@ -37,13 +35,6 @@ public class SetSprite : MonoBehaviour
 
         spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();//get renderer
         spriteRenderer.sprite = normalSprite;//set default to normal;
-
-        if(this.GetComponent<AudioSource>() == null)
-        {
-            this.gameObject.AddComponent<AudioSource>();
-        }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()

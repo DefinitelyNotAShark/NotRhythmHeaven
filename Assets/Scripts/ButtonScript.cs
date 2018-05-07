@@ -18,7 +18,7 @@ public class ButtonScript : MonoBehaviour
     }
 
     public void CreditsClick()
-    {
+    { 
         audioSource.Play();
         SceneManager.LoadScene("CreditsScene");
     }

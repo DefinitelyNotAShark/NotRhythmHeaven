@@ -32,6 +32,9 @@ public class ChangePoseOverTime : MonoBehaviour {
 
     AudioSource audioSource;
 
+    [SerializeField]
+    AudioClip endApplause;
+
     public static bool canStartMainCoroutine;
 
     // Use this for initialization
@@ -43,7 +46,7 @@ public class ChangePoseOverTime : MonoBehaviour {
 
     IEnumerator MainCoroutine()//this is the big function that will set all the moves for the game!//this is hard coded. Change to make better
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(6);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
         yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
@@ -55,10 +58,14 @@ public class ChangePoseOverTime : MonoBehaviour {
         StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose1, SetSprite.SpriteState.pose2));
         yield return new WaitForSeconds(6);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose1));
         yield return new WaitForSeconds(6);
         StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose1, SetSprite.SpriteState.pose3));
         yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
+        yield return new WaitForSeconds(5);
+        StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose2));
         yield return new WaitForSeconds(6);
         StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose3, SetSprite.SpriteState.pose1));
         yield return new WaitForSeconds(5);
@@ -67,6 +74,13 @@ public class ChangePoseOverTime : MonoBehaviour {
         StartCoroutine(ChangeStatesOverTimeTwoPositions(timeBetweenAiChange, SetSprite.SpriteState.pose3, SetSprite.SpriteState.pose4));
         yield return new WaitForSeconds(5);
         StartCoroutine(ChangeEachAIStateOverTime(timeBetweenAiChange, SetSprite.SpriteState.pose4));
+        yield return new WaitForSeconds(5);
+        audioSource.clip = endApplause;
+        audioSource.Play();
+        while (audioSource.isPlaying)//dont do shit until it's over
+        {
+            yield return new WaitForSeconds(.5f);//check back every half second 
+        }
         SceneManager.LoadScene("GameOverScene");
 
     }

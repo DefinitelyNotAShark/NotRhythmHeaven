@@ -29,6 +29,7 @@ public class ManageIntroSouncs : MonoBehaviour {
             {
                 audioSource.volume = .4f;
                 audioSource.clip = mainMusicClip;
+                audioSource.loop = true;
                 audioSource.Play();
                 loopBreak = true;
             }

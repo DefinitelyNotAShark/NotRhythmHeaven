@@ -217,6 +217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41aaed816622b5642a7d57074f262d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pose1Clip: {fileID: 0}
+  pose2Clip: {fileID: 0}
+  pose3Clip: {fileID: 0}
+  pose4Clip: {fileID: 0}
 --- !u!114 &53848310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4df7b508ad341742b9067fa8e1ad657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMusicClip: {fileID: 8300000, guid: 394f85917dae9c6458994c156de57792, type: 3}
+  mainMusicClip: {fileID: 8300000, guid: 864e4028ac1f02d4f9dd30a059834b40, type: 3}
 --- !u!1 &800048973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1030,10 @@ MonoBehaviour:
   AiGameObject1: {fileID: 242016156}
   AiGameObject2: {fileID: 1208082387}
   AiGameObject3: {fileID: 956491072}
+  pose1Clip: {fileID: 8300000, guid: 96454c4c5ee0a7c49af45d335ab245ae, type: 3}
+  pose2Clip: {fileID: 8300000, guid: 62b1bcd8db676ff4f8740b0b7b0ded18, type: 3}
+  pose3Clip: {fileID: 8300000, guid: 650010df3ee361446ac2389d4d9d6a81, type: 3}
+  pose4Clip: {fileID: 8300000, guid: 3a26887c927b9194d897c43bac80202b, type: 3}
 --- !u!1 &1166868935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1413,6 +1421,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 758347059}
   correctSound: {fileID: 8300000, guid: 26e174d4a38f3e64d8c51840f7e1e3ef, type: 3}
   wrongSound: {fileID: 8300000, guid: 52b64227d124f3d48acb6c8877e44ae2, type: 3}
+  endApplause: {fileID: 8300000, guid: 489c975c8d1616d47936323984b4736f, type: 3}
 --- !u!4 &2025862062
 Transform:
   m_ObjectHideFlags: 0

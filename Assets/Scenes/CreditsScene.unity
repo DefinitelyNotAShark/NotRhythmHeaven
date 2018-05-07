@@ -383,7 +383,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Fonts \n-Sawywer's Whitewash by Chequered Ink\n- Optimal Solutions by Octotype\nArt\n-All
-    art by Sophia Kneznekoff\nSFX\n-Sounds from freedound.com\nMusic\n-Music by Sophia
+    art by Sophia Kneznekoff\nSFX\n-Sounds from freesound.com\nMusic\n-Music by Sophia
     Kneznekoff\n"
 --- !u!222 &684030524
 CanvasRenderer:
